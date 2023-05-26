@@ -1,0 +1,25 @@
+main {
+    width: 100%;
+}
+
+.mainDiv {
+    display: inline;
+}
+
+
+.eventsDiv {
+    float: left;
+    width: 500px;
+    margin: 20px 20px 10px 20px;
+}
+
+.eventDiv {
+    width: 500px;
+    display: inline-block;
+}
+
+.souhrnDiv {
+    float: right;
+    width: 300px;
+    margin: 20px 20px 20px 20px;
+}

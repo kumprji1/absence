@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <title>Kalendář</title>
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <h1>Účet není ověřen. Zkontrolujte email</h1>
+    <form id="formLogout" action="/logout" method="post">
+        <!-- <a class="submit" href="#">Odhlásit se</button> -->
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <a id="btnlog" href="javascript:;" onclick="parentNode.submit();">Odhlásit se</a>
+    </form>
+    <script type="text/javascript">
+      $("#btnlog").click(function () {
+        $("#formLogout").hide();
+      });
+  </script>    
+
+</body>
+</html>

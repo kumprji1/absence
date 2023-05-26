@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Didact+Gothic"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs@9.12.0/styles/github.css"> -->
+    <link rel="stylesheet" href="/css/style-home-nav.css" />
+    <link rel="stylesheet" href="/css/event.css" />
+    <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+    <title>Absence</title>
+  </head>
+
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+    <script>
+      $(document).ready(function() {
+        $(".navbar-fostrap").click(function() {
+          $(".nav-fostrap").toggleClass("visible");
+          $("body").toggleClass("cover-bg");
+        });
+      });
+    </script>
+    <div id="main">
+      <div class="container">
+        <nav>
+          <div class="nav-fostrap">
+            <ul>
+              <% if (workplaceOfUser !== 'vse') { %>
+              <li class="mobItem"><a href="/add-event">Přidat absenci</a></li>
+              <% } %> <% if (workplaceOfUser === 'vse' || workplaceOfUser ===
+              'vrchlabi') { %>
+              <li class="mobItem">
+                <a
+                  class="<%= event.access === 'vrchlabi' ? 'liActive' : ''%> "
+                  href="/vrchlabi"
+                  >Vrchlabí</a
+                >
+              </li>
+              <% } %> <% if (workplaceOfUser === 'vse' || workplaceOfUser ===
+              'dvur') { %>
+              <li class="mobItem">
+                <a
+                  class="<%= event.access === 'dvur' ? 'liActive' : ''%> "
+                  href="/dvur"
+                  >Dvůr Králové nad Labem</a
+                >
+              </li>
+              <% } %> <% if (workplaceOfUser === 'vse' || workplaceOfUser ===
+              'hradec') { %>
+              <li class="mobItem">
+                <a
+                  class="<%= event.access === 'hradec' ? 'liActive' : ''%> "
+                  href="/hradec"
+                  >Hradec Králové</a
+                >
+              </li>
+              <% } %> <% if (workplaceOfUser === 'vse' || workplaceOfUser ===
+              'trutnov') { %>
+              <li class="mobItem">
+                <a
+                  class="<%= event.access === 'trutnov' ? 'liActive' : ''%> "
+                  href="/trutnov"
+                  >Trutnov</a
+                >
+              </li>
+              <% } %>
+              <li id="liLogout">
+                <form id="formLogout" action="/logout" method="post">
+                  <!-- <a class="submit" href="#">Odhlásit se</button> -->
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                  <a
+                    id="btnlog"
+                    href="javascript:;"
+                    onclick="parentNode.submit();"
+                    >Odhlásit se</a
+                  >
+                </form>
+              </li>
+            </ul>
+          </div>
+          <div class="nav-bg-fostrap">
+            <div class="navbar-fostrap">
+              <span></span> <span></span> <span></span>
+            </div>
+            <a href="" class="title-mobile"></a>
+          </div>
+        </nav>
+        <div class="content">
+          <div class="content-center">
+            <div class="content-center-item">
+              <p class="label">Pracoviště:</p>
+              <p class="dataItem">
+                <% if(event.access === 'dvur') { %> Dvůr Králové nad Labem <% }
+                %> <% if(event.access === 'hradec') { %> Hradec Králové <% } %>
+                <% if(event.access === 'vrchlabi') { %> Vrchlabí <% } %> <%
+                if(event.access === 'trutnov') { %> Trutnov <% } %>
+              </p>
+            </div>
+            <div class="content-center-item">
+              <p class="label">Jméno:</p>
+              <p class="dataItem">
+                <%= event.firstNameWas %> <%= event.lastNameWas %>
+              </p>
+            </div>
+            <div class="content-center-item">
+              <p class="label">Důvod:</p>
+              <p class="dataItem"><%= event.description %></p>
+            </div>
+            <div class="content-center-item">
+              <p class="label">Od:</p>
+              <p class="dataItem"><%= dateFrom %></p>
+            </div>
+            <div class="content-center-item">
+              <p class="label">Do:</p>
+              <p class="dataItem"><%= dateTo %></p>
+            </div>
+            <div class="content-center-item">
+              <p class="label">Absence vložena:</p>
+              <p class="dataItem"><%= createdAt %></p>
+              <hr width="30%" />
+            </div>
+            <% if (event.responses[event.responses.length - 1].status === 0) {
+            %>
+            <div class="content-center-item">
+              <p class="label">Status:</p>
+              <p class="dataItem">Nezkontrolováno</p>
+            </div>
+            <% } %> <% for( let index = 0; index < event.responses.length;
+            index++ ) { %> <% if (event.responses[index].status === 1) { %>
+            <div class="content-center-item">
+              <p class="label">Status:</p>
+              <p class="dataItem">Schváleno</p>
+            </div>
+            <div class="content-center-item">
+              <p class="label">Dne:</p>
+              <p class="dataItem"><%= datesOfResponses[index - 1] %></p>
+            </div>
+            <div class="content-center-item">
+              <p class="label">Schválila:</p>
+              <p class="dataItem"><%= event.responses[index].lastName %></p>
+              <% if(event.responses[index].note === '') { %>
+              <hr width="30%" />
+              <% } %>
+            </div>
+            <% if (event.responses[index].note !== '') { %>
+            <div class="content-center-item">
+              <p class="label">Poznámka:</p>
+              <p class="dataItem"><%= event.responses[index].note %></p>
+              <hr width="30%" />
+            </div>
+            <% } %> <% } %> <% if (event.responses[index].status === 2) { %>
+            <div class="content-center-item">
+              <p class="label">Status:</p>
+              <p class="dataItem">Neschváleno</p>
+            </div>
+            <div class="content-center-item">
+              <p class="label">Dne:</p>
+              <p class="dataItem"><%= datesOfResponses[index - 1] %></p>
+            </div>
+            <div class="content-center-item">
+              <p class="label">Neschválila:</p>
+              <p class="dataItem"><%= event.responses[index].lastName %></p>
+              <% if(event.responses[index].note === '') { %>
+              <hr width="30%" />
+              <% } %>
+            </div>
+            <% if (event.responses[index].note !== '') { %>
+            <div class="content-center-item">
+              <p class="label">Poznámka:</p>
+              <p class="dataItem"><%= event.responses[index].note %></p>
+              <hr width="30%" />
+            </div>
+            <% } %> <% } %> <% if (event.responses[index].status === 3) { %>
+            <div class="content-center-item">
+              <p class="label">Status:</p>
+              <p class="dataItem">Absence zrušena</p>
+            </div>
+            <div class="content-center-item">
+              <p class="label">Zrušil/a:</p>
+              <p class="dataItem"><%= event.responses[index].lastName %></p>
+            </div>
+            <% if (event.responses[index].note !== '') { %>
+            <div class="content-center-item">
+              <p class="label">Poznámka:</p>
+              <p class="dataItem"><%= event.responses[index].note %></p>
+            </div>
+            <% } %>
+            <div class="content-center-item">
+              <p class="label">Datum zrušení:</p>
+              <p class="dataItem"><%= datesOfResponses[index - 1] %></p>
+            </div>
+            <% } %> <% } %> <% if (workplaceOfUser === 'vse' &&
+            event.responses[event.responses.length - 1].status !== 3) { %> <% if
+            (event.responses[event.responses.length - 1].status !== 1) { %>
+            <form id="formap" action="/response" method="post">
+              <div class="content-center-item">
+                <input type="hidden" name="eventId" value="<%= event._id %>" />
+                <textarea
+                  class="textApprove"
+                  name="note"
+                  id=""
+                  cols="30"
+                  rows="5"
+                  placeholder="Poznámka pro schválení (nepovinná)"
+                ></textarea>
+              </div>
+              <div class="content-center-item">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <button
+                  id="btnap"
+                  class="btnApprove"
+                  type="submit"
+                  name="approve"
+                  value="yes"
+                >
+                  Schvaluji
+                </button>
+              </div>
+            </form>
+            <% } %> <% if (event.responses[event.responses.length - 1].status
+            !== 2) { %>
+            <form id="formdisap" action="/response" method="post">
+              <div class="content-center-item">
+                <input type="hidden" name="eventId" value="<%= event._id %>" />
+                <textarea
+                  class="textDisapprove"
+                  name="note"
+                  cols="30"
+                  rows="5"
+                  placeholder="Poznámka pro neschválení (nepovinná)"
+                ></textarea>
+              </div>
+              <div class="content-center-item">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <button
+                  id="btndisap"
+                  class="btnDisapprove"
+                  type="submit"
+                  name="approve"
+                  value="no"
+                >
+                  Neschvaluji
+                </button>
+              </div>
+            </form>
+            <% } %> <% } %> <% if (workplaceOfUser !== 'vse' &&
+            event.responses[event.responses.length - 1].status !== 3) { %>
+            <div class="content-center-item">
+              <button id="trysend" class="btnInvalidate">Zrušit absenci</button>
+            </div>
+            <form id="forminv" action="/invalidate" method="post">
+              <div id="divFormInvalidate">
+                <div class="content-center-item">
+                  <input
+                    type="hidden"
+                    name="eventId"
+                    value="<%= event._id %>"
+                  />
+                  <textarea
+                    class="textInvalidate"
+                    name="note"
+                    cols="30"
+                    rows="5"
+                    placeholder="Poznámka pro zrušení (nepovinná)"
+                  ></textarea>
+                </div>
+                <div class="content-center-item">
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                  <button id="send" class="btnInvalidate" type="submit">
+                    Doopravdy zrušit absenci
+                  </button>
+                </div>
+              </div>
+            </form>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      $("#divFormInvalidate").hide();
+      $("#trysend").click(function() {
+        $("#divFormInvalidate").show(100);
+        $("#trysend").hide(100);
+      });
+    </script>
+    <script type="text/javascript">
+      $("#btnap").click(function() {
+        $("#formap").hide();
+        $("#formdisap").hide();
+      });
+      $("#btndisap").click(function() {
+        $("#formdisap").hide();
+        $("#formap").hide();
+      });
+      $("#send").click(function() {
+        $("#forminv").hide();
+      });
+      $("#btnlog").click(function() {
+        $("#formLogout").hide();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs@9.12.0/styles/github.css"> -->
+    <link rel="stylesheet" href="/css/style-home-nav.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <title>
+        <% if(workplaceOfEvent === 'dvur') { %> Dvůr Králové nad Labem <% } %>
+        <% if(workplaceOfEvent === 'hradec') { %> Hradec Králové <% } %>
+        <% if(workplaceOfEvent === 'vrchlabi') { %> Vrchlabí <% } %>
+        <% if(workplaceOfEvent === 'trutnov') { %> Trutnov <% } %>
+</title>
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.navbar-fostrap').click(function () {
+                $('.nav-fostrap').toggleClass('visible');
+                $('body').toggleClass('cover-bg');
+            });
+        });
+    </script>
+    <div id="main">
+        <div class="container">
+            <nav>
+                <div class="nav-fostrap">
+                    <ul>
+                        <% if (workplaceOfUser !== 'vse') { %>
+                        <li class="mobItem"><a href="/add-event">Přidat absenci</a></li>
+                        <% } %>
+                        <% if (workplaceOfUser === 'vse' || workplaceOfUser === 'vrchlabi') { %>
+                        <li class="mobItem"><a class="<%= workplaceOfEvent === 'vrchlabi' ? 'liActive' : ''%> " href="/vrchlabi">Vrchlabí</a></li>
+                        <% } %>
+                        <% if (workplaceOfUser === 'vse' || workplaceOfUser === 'dvur') { %>
+                        <li class="mobItem"><a class="<%= workplaceOfEvent === 'dvur' ? 'liActive' : ''%> " href="/dvur">Dvůr Králové nad Labem</a></li>
+                        <% } %>
+                        <% if (workplaceOfUser === 'vse' || workplaceOfUser === 'hradec') { %>
+                        <li class="mobItem"><a class="<%= workplaceOfEvent === 'hradec' ? 'liActive' : ''%> " href="/hradec">Hradec Králové</a></li>
+                        <% } %>
+                        <% if (workplaceOfUser === 'vse' || workplaceOfUser === 'trutnov') { %>
+                        <li class="mobItem"><a class="<%= workplaceOfEvent === 'trutnov' ? 'liActive' : ''%> " href="/trutnov">Trutnov</a></li>
+                        <% } %>
+                        <li id="liLogout">
+                            <form id="formLogout" action="/logout" method="post">
+                                <!-- <a class="submit" href="#">Odhlásit se</button> -->
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <a id="btnlog" href="javascript:;" onclick="parentNode.submit();">Odhlásit se</a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                <div class="nav-bg-fostrap">
+                    <div class="navbar-fostrap"> <span></span> <span></span> <span></span> </div>
+                    <a href="" class="title-mobile"></a>
+                </div>
+            </nav>
+            <div class='content'>
+                <div class="content-right">
+                    <% if (dates) { %>
+                    <% for( let i = 0; i < dates.length; i++ ) { %>
+
+                    <div class="content-right-item">
+                        <p><%= dates[i].dayOfWeek %> <%= dates[i].day %>. <%= dates[i].month+1 %>. <%= dates[i].year %>
+                        </p>
+                        <p class="numOfAbsent"> chybí: <%= dates[i].quantity %> <%= (numOfEmployees == 12 || numOfEmployees == 7) ? ' ze ' : ' z ' %><%= numOfEmployees %> </p>
+                    </div>
+                    <hr class="hr-right-item">
+                    <% } %>
+                    <% } %>
+
+                    <!-- <div class="content-right-item">
+                        <p>Ahoj</p>
+                        <p>Ahoj</p>
+                        <p>Ahoj</p>
+                    </div> -->
+                </div>
+                <div class="content-left">
+                    <% if (events) { %>
+                    <% for( let i = 0; i < events.length; i++ ) { let status = events[i].responses[events[i].responses.length - 1].status; %>
+                    <% if (events[i].userId.toString() === userIdAdded.toString() || workplaceOfUser === 'vse') { %>
+                    <a href="event/<%=events[i]._id%>">
+                        <% } %>
+
+                        <div class="content-left-item  
+                        <%= events[i].userId.toString() === userIdAdded.toString() && status === 0 || 
+                        workplaceOfUser === 'vse' && status === 0 ? ' content-event-blue-shadow ' : ''%>
+                        <%= status === 0 ? ' content-left-item-0 '  : ' '%> 
+                        <%= events[i].userId.toString() === userIdAdded.toString() && status === 3 || 
+                        workplaceOfUser === 'vse' && status === 3 ? ' content-event-grey-shadow ' : ''%>
+                        <%= status === 3 ? ' content-left-item-3 '  : ' '%> 
+                        <%= events[i].userId.toString() === userIdAdded.toString() && status === 1 || 
+                        workplaceOfUser === 'vse' && status === 1 ? ' content-event-green-shadow ' : ''%>
+                        <%= status === 1 ? ' content-left-item-1 '  : ' '%> 
+                        <%= events[i].userId.toString() === userIdAdded.toString() && status === 2 || 
+                        workplaceOfUser === 'vse' && status === 2 ? ' content-event-red-shadow ' : ''%>
+                        <%= status === 2 ? ' content-left-item-2 '  : ' '%> 
+                        ">
+                            <p>Od: <%= formatDatesFrom[i] %></p>
+                            <p>Do: <%= formatDatesTo[i] %></p>
+                            <p><%= events[i].firstNameWas %> <%= events[i].lastNameWas %></p>
+                        </div>
+                        <% if (events[i].userId.toString() === userIdAdded.toString() || workplaceOfUser === 'vse') { %>
+                    </a>
+                    <% } %>
+                    <% } %>   
+                    <% if (events.length == 0) { %>
+                        <h2>Žádné absence</h2><% } %>              
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer style=" width: 100%; position: fixed; bottom: 0; text-align: center;padding:5px">
+        <span style="width: 100%; color: rgb(58, 58, 58);">2020 © Jiří Kumprecht</span>
+    </footer>
+    <script type="text/javascript">
+      $("#btnlog").click(function () {
+        $("#formLogout").hide();
+      });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,8 @@
+{
+    "env": {
+        "MONGO_USER": "school",
+        "MONGO_PASSWORD": "4eFmWw5I7hNEJUaa",
+        "MONGO_DEFAULT_DATABASE": "calendar",
+        "DOMAIN_ADRESS": "10.0.1.69:3000"
+    }
+}

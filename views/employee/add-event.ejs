@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="https://unpkg.com/highlightjs@9.12.0/styles/github.css">
+  <link rel="stylesheet" href="/css/style-home-nav.css">
+  <link rel="stylesheet" href="/css/picker.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/event.css">
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Přidat absenci</title>
+</head>
+
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var end = $('#dateTo').val();
+      var dateTime = end.split("T");
+      var datePieces = dateTime[0].split("-");
+      var datePiecesNumber = [];
+      for (let i = 0; i < datePieces.length; i++) {
+        datePiecesNumber.push(parseInt(datePieces[i]));
+      }
+      var textDate = datePiecesNumber[2] + '. ' + datePiecesNumber[1] + '. ' + datePiecesNumber[0] + ' - ' + dateTime[1];
+      document.getElementById("checkDateTo").innerHTML = textDate;
+
+      end = $('#dateFrom').val();
+      dateTime = end.split("T");
+      datePieces = dateTime[0].split("-");
+      datePiecesNumber = [];
+      for (let i = 0; i < datePieces.length; i++) {
+        datePiecesNumber.push(parseInt(datePieces[i]));
+      }
+      textDate = datePiecesNumber[2] + '. ' + datePiecesNumber[1] + '. ' + datePiecesNumber[0] + ' - ' + dateTime[1];
+      document.getElementById("checkDateFrom").innerHTML = textDate;
+
+      $('.navbar-fostrap').click(function () {
+        $('.nav-fostrap').toggleClass('visible');
+        $('body').toggleClass('cover-bg');
+      });
+    });
+  </script>
+  <div id="main">
+    <div class="container">
+      <nav>
+        <div class="nav-fostrap">
+          <ul>
+            <% if (workplaceOfUser !== 'vse') { %>
+            <li class="mobItem"><a class="liActive" href="/add-event">Přidat absenci</a></li>
+            <% } %>
+            <% if (workplaceOfUser === 'vse' || workplaceOfUser === 'vrchlabi') { %>
+            <li class="mobItem"><a class="" href="/vrchlabi">Vrchlabí</a></li>
+            <% } %>
+            <% if (workplaceOfUser === 'vse' || workplaceOfUser === 'dvur') { %>
+            <li class="mobItem"><a class="" href="/dvur">Dvůr Králové nad Labem</a></li>
+            <% } %>
+            <% if (workplaceOfUser === 'vse' || workplaceOfUser === 'hradec') { %>
+            <li class="mobItem"><a class="" href="/hradec">Hradec Králové</a></li>
+            <% } %>
+            <% if (workplaceOfUser === 'vse' || workplaceOfUser === 'trutnov') { %>
+            <li class="mobItem"><a class="" href="/trutnov">Trutnov</a></li>
+            <% } %>
+            <li id="liLogout">
+              <form id="formLogout" action="/logout" method="post">
+                <!-- <a class="submit" href="#">Odhlásit se</button> -->
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <a id="btnlog" href="javascript:;" onclick="parentNode.submit();">Odhlásit se</a>
+              </form>
+            </li>
+          </ul>
+        </div>
+        <div class="nav-bg-fostrap">
+          <div class="navbar-fostrap"> <span></span> <span></span> <span></span> </div>
+          <a href="" class="title-mobile"></a>
+        </div>
+      </nav>
+
+      <div class='content'>
+        <div class="content-center">
+          <form action="/add-event" method="post">
+            <div>
+              <div class="content-center-item">
+                <p>Datum od: </p>
+              </div>
+              <div class="content-center-item">
+                <input id="dateFrom" type="text" class="docs-date dateFromInput" name="from"
+                  placeholder="Pick a date and time" value="<%= dateFrom %>">
+              </div>
+              <div class="content-center-item">
+                <p>Datum do: </p>
+              </div>
+              <!-- <div class="content-center-item">
+                <p class="label">Datum do: </p>
+                <strong><span class="dataItem" id="checkDateTo"></span></strong>
+              </div> -->
+              <div class="content-center-item">
+                <input id="dateTo" type="text" class="docs-date2 dateFromInput" name="to"
+                  placeholder="Pick a date and time" value="<%= dateTo %>">
+              </div>
+              <div class="content-center-item">
+                <p for="label">Popis</p>
+                <textarea class="dataItem reasonOfAbsent" name="description" id="" cols="30" rows="5"
+                  placeholder="Napište důvod (povinné)"><% if (oldInput) { %><%=oldInput%><% } %></textarea>
+              </div>
+              <div class="content-center-item">
+                <p>Kontrola data</p>
+              </div>
+              <div class="content-center-item">
+                <p class="labelDatum">od: </p>
+                <span class="dataItem" id="checkDateFrom"></span>
+              </div>
+              <div class="content-center-item">
+                <p class="labelDatum">do: </p>
+                <span class="dataItem" id="checkDateTo"></span>
+              </div>
+
+
+              <div id="mydivsend">
+                <div class="content-center-item">
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  <button id="btnsend" type="submit" class="btnSendAbsent">Doopravdy odeslat absenci</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="content-center-item">
+            <button id="trysend" class="btnSendAbsent">Odeslat absenci</button>
+          </div>
+          <div id="notsendabsent" class="content-center-item">
+            <button id="btnnotsendabsent" type="submit" class="btnSendAbsent btnSendAbsentBack">Zpět</button>
+          </div>
+          <% if (errorMessage) { %>
+          <div id="errorM" class="content-center-item">
+            <strong><%= errorMessage %></strong>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="text/javascript">
+    $("#notsendabsent").hide();
+    $("#mydivsend").hide();
+    $("#trysend").click(function () {
+      $("#mydivsend").show(100);
+      $("#notsendabsent").show(100);
+      $("#trysend").hide(100);
+      $("#errorM").hide(100);
+    });
+    $("#btnnotsendabsent").click(function () {
+      $("#mydivsend").hide(100);
+      $("#trysend").show(100);
+      $("#notsendabsent").hide(100);
+    });
+  </script>
+      <script type="text/javascript">
+        $("#btnsend").click(function () {
+        $("#mydivsend").hide();
+        $("#notsendabsent").hide();
+      });
+      $("#btnlog").click(function () {
+        $("#formLogout").hide();
+      });
+  </script>
+  
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script> -->
+  <script src="https://unpkg.com/highlightjs@9.12.0/highlight.pack.js"></script>
+  <!-- <script src="https://fengyuanchen.github.io/shared/google-analytics.js"></script> -->
+  <script src="/js/picker.js"></script>
+  <script src="/js/main.js"></script>
+
+  <script>
+    new Picker(document.querySelector('.docs-date'), {
+      controls: true,
+      format: 'YYYY-MM-DDTHH:mm',
+      headers: true,
+      increment: {
+        minute: 5,
+      },
+      text: {
+        title: 'Vyberte datum a čas absence: Od',
+        cancel: 'Zpět',
+        confirm: 'Potvrdit datum',
+        year: 'Rok',
+        month: 'Měsíc',
+        day: 'Den',
+        hour: 'Hodiny',
+        minute: 'Minuty'
+      }
+    });
+  </script>
+  <script>
+    new Picker(document.querySelector('.docs-date2'), {
+      controls: true,
+      format: 'YYYY-MM-DDTHH:mm',
+      headers: true,
+      increment: {
+        minute: 5,
+      },
+      text: {
+        title: 'Vyberte datum a čas absence: Do',
+        cancel: 'Zpět',
+        confirm: 'Potvrdit datum',
+        year: 'Rok',
+        month: 'Měsíc',
+        day: 'Den',
+        hour: 'Hodiny',
+        minute: 'Minuty'
+      }
+    });
+  </script>
+  <script>
+    $(".picker-confirm").click(function () {
+      setTimeout(
+        function () {
+          var end = $('#dateTo').val();
+          var dateTime = end.split("T");
+          var datePieces = dateTime[0].split("-");
+          var datePiecesNumber = [];
+          for (let i = 0; i < datePieces.length; i++) {
+            datePiecesNumber.push(parseInt(datePieces[i]));
+          }
+          var textDate = datePiecesNumber[2] + '. ' + datePiecesNumber[1] + '. ' + datePiecesNumber[0] + ' - ' + dateTime[1];
+          document.getElementById("checkDateTo").innerHTML = textDate;
+
+          end = $('#dateFrom').val();
+          dateTime = end.split("T");
+          datePieces = dateTime[0].split("-");
+          datePiecesNumber = [];
+          for (let i = 0; i < datePieces.length; i++) {
+            datePiecesNumber.push(parseInt(datePieces[i]));
+          }
+          textDate = datePiecesNumber[2] + '. ' + datePiecesNumber[1] + '. ' + datePiecesNumber[0] + ' - ' + dateTime[1];
+          document.getElementById("checkDateFrom").innerHTML = textDate;
+        },
+        700);
+    });
+  </script>
+
+</body>
+
+</html>

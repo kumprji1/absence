@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="cs" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <title>Kalendář</title>
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <div class="main-back-color">
+      <div class="div-name roundedCorner shadow-div-name">
+        <div class="roundedCorner div-name-back-color">
+          <span style="font-size: 140%;">Registrace</span>
+        </div>
+        <div class="div-cely">
+          <div class="inner-shadoow div-cely-in">
+            <div class="div-odsazeni">
+              <div class="div-form">
+                <form class="formLogin" action="/register" method="post" novalidate>
+                  <div class="jmenoPrijmeni">
+                    <div class="jmeeno" style="background-color: blue; height:4vh; width:50%; display: inline;">
+                    </div>
+                    <div class="priijmeni" style="background-color: blue; height:4vh; width: 50%;display: inline;">
+                    </div>
+                  </div>
+                  <input type="text" value="<%= oldInput.firstName %>" name="firstName" class="form-control jmeno-reg"  placeholder="Jméno">
+                  <input type="text" value="<%= oldInput.lastName %>" name="lastName" class="form-control prijmeni-reg" placeholder="Příjmení">
+                  <div class="input-group mb-3" style="clear: both; padding-top:0.8em;">
+                    <input type="email" value="<%= oldInput.email %>" name="email" class="form-control" placeholder="Emailová adresa" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                  </div>
+                  <input type="password" value="<%= oldInput.password %>" name="password" class="form-control" id="exampleInputPassword1" placeholder="Heslo">
+                  <input type="password" value="<%= oldInput.passwordAgain%>" name="passwordAgain" style="margin-top: 16px;" class="form-control" id="exampleInputPassword2" placeholder="Heslo znovu">
+                  <select name="workplace" id="" class="seznam">
+                    <option value="no" selected>Vyberte pracoviště</option>                  
+                    <option value="vrchlabi">Vrchlabí</option>
+                    <option value="trutnov">Trutnov</option>
+                    <option value="dvur">DKnL</option>
+                    <option value="hradec">Hradec Králové</option>
+                  </select>
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  <button id="btnregister" type="submit" class="btn btn-primary btn-login" style="width: 60%; margin-bottom: 10px;">Zaregistrovat</button>
+                  <% if (errorMessage) { %>
+                  <p><%= errorMessage %></p>
+                  <% } %>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      $("#btnregister").show();
+      $("#btnregister").click(function () {
+      $("#btnregister").hide();
+    });
+</script>
+  </body>
+</html>

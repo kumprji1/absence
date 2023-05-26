@@ -1,0 +1,330 @@
+body{
+  background-color: white;
+  font-family: Didact Gothic;
+  font-size: 125%;
+  text-align: center;
+  color:#404040;
+}
+.kalendar-nadpis{
+  font-size: 400%;
+  padding-top: 2%;
+}
+.roundedCorner{
+
+}
+.seznam {
+  margin-top: 15px;
+}
+.div-name{
+  background-color:rgb(136, 195, 230);
+  width:100vw;
+}
+/*
+.shadow-div-name{
+  -webkit-box-shadow: 0px 0px 41px -11px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 41px -11px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 41px -11px rgba(0,0,0,0.75);
+}
+.inner-shadoow{
+  -webkit-box-shadow: 0px -10px 17px -11px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px -10px 17px -11px rgba(0,0,0,0.75);
+  box-shadow: 0px -10px 17px -11px rgba(0,0,0,0.75);
+}
+*/
+.div-name-back-color{
+  background: linear-gradient(to top,  #4cbfe6 0%,#e6f9ff 90%);
+  background-color: blue;
+  text-align: center;
+  padding-bottom: 1vh;
+}
+.block-end{
+  display: block;
+}
+.main-back-color{
+  background-color:#f5edf8;
+  height:100vh;
+  text-align: center;
+}
+.inputElementLogin{
+  margin: 0 auto;
+}
+.prijmeni-reg{
+  margin-top: 1em;
+}
+
+.btn-login{
+  margin: 25px auto 0 auto;
+  width: 45%;
+  margin-bottom: 20px;
+}
+#jmeno, #prijmeni{
+  width: 50%;
+}
+.div-cely{
+  background-color: rgb(50, 147, 192);
+  width: 100%;
+  margin-top: 5px;
+}
+.div-cely-in{
+  background-color: #f5f5ff;
+  width: 100%;
+  height: 100%;
+}
+.div-odsazeni{
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 2vh;
+
+}
+.div-form{
+  width:100%;
+  padding: 5%;
+  padding-bottom: 0%;
+  text-align:center;
+
+}
+.div-registrace{
+  text-align: center;
+  width: 100%;
+  padding-bottom: 2vh;
+  padding: 5%;
+  padding-top: 2%;
+}
+.div-registrace{
+
+}
+.btn-registrace{
+  width: 45%;
+  margin: 0px auto 0 auto;
+
+}
+
+
+@media screen and (min-width: 1024px) {
+  .kalendar-nadpis{
+    font-size: 400%;
+    padding-top: 2%;
+  }
+  .roundedCorner{
+    -webkit-border-top-left-radius: 20px;
+  -webkit-border-top-right-radius: 20px;
+  -moz-border-radius-topleft: 20px;
+  -moz-border-radius-topright: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+
+  }
+  .jmeno-reg{
+    display: inline; width: 49%; float: left;
+  }
+  .prijmeni-reg{
+    display: inline; width: 49%; float: right;
+  }
+
+  .div-name{
+
+    background-color:rgb(136, 195, 230);
+    width: 80%;
+    margin: 0 auto;
+
+  }
+  .prijmeni-reg{
+    margin-top: 0em;
+  }
+/*
+  .shadow-div-name{
+    -webkit-box-shadow: 0px 0px 41px -11px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 41px -11px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 41px -11px rgba(0,0,0,0.75);
+  }
+  .inner-shadoow{
+    -webkit-box-shadow: 0px -10px 17px -11px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px -10px 17px -11px rgba(0,0,0,0.75);
+    box-shadow: 0px -10px 17px -11px rgba(0,0,0,0.75);
+  }*/
+
+  .div-name-back-color{
+    background: linear-gradient(to top,  #4cbfe6 0%,#e6f9ff 90%);
+    background-color: blue;
+    width: 100%;
+    text-align: center;
+  }
+  .block-end{
+    display: block;
+  }
+  .main-back-color{
+    background: linear-gradient(to top,  #ccf2ff 0%,#e6e6e6 100%);
+    background-color:#f5edf8;
+    height:100vh;
+    position:relative;
+    text-align: center;
+    padding-top: 5em;
+  }
+  .inputElementLogin{
+    margin: 0 auto;
+  }
+
+  .btn-login{
+    margin: 25px auto 0 auto;
+    width: 60%;
+  }
+  #jmeno, #prijmeni{
+    width: 50%;
+  }
+  .div-cely{
+    background-color: rgb(74, 198, 202);
+    width: 100%;
+    height: 18.5em;
+  }
+  .div-cely-in{
+    background-color: #f5f5ff;
+    width: 100%;
+    height: 18.5em;
+  }
+  .div-odsazeni{
+    width: 40%;
+    height: 20em;
+    margin: 0 auto;
+    padding-top: 2vh;
+    position:relative;
+  }
+  .div-form{
+    height: 25em;
+    position: absolute;
+    /*top: 5vh; left: 50vh;*/
+    width:100%;
+    padding: 5%;
+    padding-bottom: 0%;
+    text-align:center;
+  }
+  .div-registrace{
+    position: absolute;
+    top:13.5em;
+    text-align: center;
+    width: 100%;
+    padding: 5%;
+    padding-top: 0;
+  }
+  .div-registrace{
+    position:relative;
+  }
+  .btn-registrace{
+    width: 60%;
+  }
+
+}
+
+@media screen and (min-width: 1335px) {
+  .kalendar-nadpis{
+    font-size: 400%;
+    padding-top: 2%;
+  }
+  .roundedCorner{
+  -webkit-border-top-left-radius: 20px;
+  -webkit-border-top-right-radius: 20px;
+  -moz-border-radius-topleft: 20px;
+  -moz-border-radius-topright: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+
+  }
+  .div-name{
+
+    background-color:rgb(136, 195, 230);
+    width: 60%;
+    margin: 0 auto;
+
+  }
+/*
+  .shadow-div-name{
+    -webkit-box-shadow: 0px 0px 35px -15px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 35px -15px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 35px -15px rgba(0,0,0,0.75);  }
+  .inner-shadoow{
+    -webkit-box-shadow: 0px -10px 17px -11px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px -10px 17px -11px rgba(0,0,0,0.75);
+    box-shadow: 0px -10px 17px -11px rgba(0,0,0,0.75);
+  }
+*/
+  .div-name-back-color{
+    background: linear-gradient(to top,  #4cbfe6 0%,#e6f9ff 90%);
+    background-color: blue;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .block-end{
+    display: block;
+  }
+  .main-back-color{
+    background: linear-gradient(to top,  #ccf2ff 0%,#e6e6e6 100%);
+    background-color:#f5edf8;
+    height:100vh;
+    position:relative;
+    text-align: center;
+    padding-top: 5em;
+  }
+  .main-back-color-kal{
+    padding-top: 0em;
+  }
+  .inputElementLogin{
+    margin: 0 auto;
+  }
+  .prijmeni-reg{
+    margin-top: 0em;
+  }
+
+
+  .btn-login{
+    margin: 25px auto 0 auto;
+    width: 60%;
+  }
+  #jmeno, #prijmeni{
+    width: 50%;
+  }
+  .div-cely{
+    background-color: rgb(53, 140, 190);
+    width: 100%;
+    height: 18.5em;
+  }
+  .div-cely-kal{
+    background-color: #f5f5ff;
+    width: 100%;
+  }
+  .div-cely-in{
+    background-color: #f5f5ff;
+    width: 100%;
+    height: 18.5em;
+  }
+  .div-odsazeni{
+    width: 40%;
+    height: 20em;
+    margin: 0 auto;
+    padding-top: 2vh;
+    position:relative;
+  }
+  .div-form{
+    height: 25em;
+    position: absolute;
+    /*top: 5vh; left: 50vh;*/
+    width:100%;
+    padding: 5%;
+    padding-bottom: 0%;
+    text-align:center;
+  }
+  .div-registrace{
+    position: absolute;
+    top:13em;
+    text-align: center;
+    width: 100%;
+    padding: 5%;
+    padding-top: 0;
+  }
+  .div-registrace{
+    position:relative;
+  }
+  .btn-registrace{
+    width: 60%;
+  }
+
+}
