@@ -65,9 +65,9 @@ app.use((req, res, next) => {
 		.catch((err) => console.log(err));
 });
 
-app.use(authRoutes);
-app.use(employeeRoutes);
-app.use(errorController.get404Page);
+app.use('/.netlify/functions/app', authRoutes, employeeRoutes, errorController.get404Page);
+// app.use('/.netlify/functions/api', employeeRoutes);
+// app.use('/.netlify/functions/api', errorController.get404Page);
 
 app.use((error, req, res, next) => {
 	console.log("Heroku22")
