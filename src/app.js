@@ -65,7 +65,7 @@ app.use((req, res, next) => {
 		.catch((err) => console.log(err));
 });
 
-app.use('/.netlify/functions/app', authRoutes, employeeRoutes, errorController.get404Page);
+app.use('/.netlify/functions/app', authRoutes);
 // app.use('/.netlify/functions/api', employeeRoutes);
 // app.use('/.netlify/functions/api', errorController.get404Page);
 
