@@ -8,9 +8,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
+    "start": "netlify-lambda serve src",
+    "build": "netlify-lambda build src",
     "start-server": "node app.js",
-    "startd": "nodemon app.js"
+    "startd": "nodemon ./src/app.js"
   },
   "author": "Jiri Kumprecht",
   "license": "ISC",
@@ -33,8 +34,10 @@
     "moment-timezone": "^0.5.27",
     "mongodb": "^3.5.2",
     "mongoose": "^5.8.9",
+    "netlify-lambda": "^2.0.16",
     "nodemailer": "^6.4.2",
     "nodemailer-sendgrid-transport": "^0.2.0",
-    "pickerjs": "^1.2.1"
+    "pickerjs": "^1.2.1",
+    "serverless-http": "^3.2.0"
   }
 }

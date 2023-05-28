@@ -8,6 +8,7 @@ const csrf = require('csurf');
 const helmet = require('helmet');
 const compression = require('compression');
 const moment = require('moment');
+const serverless = require('serverless-http')
 
 const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-sptrm.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
 //`mongodb+srv://school:4eFmWw5I7hNEJUaa@cluster0-sptrm.mongodb.net/calendar?retryWrites=true&w=majority`;
@@ -31,7 +32,7 @@ const authRoutes = require('./routes/auth');
 const employeeRoutes = require('./routes/employee');
 
 app.set('view engine', 'ejs');
-app.set('views', 'views');
+app.set('views', './src/views');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -83,3 +84,5 @@ mongoose
 	.catch((err) => {
 		console.log(err);
 	});
+
+module.exports.handler = serverless(app)
