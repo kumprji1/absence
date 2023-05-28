@@ -8,10 +8,10 @@ const csrf = require('csurf');
 const helmet = require('helmet');
 const compression = require('compression');
 const moment = require('moment');
-const serverless = require('serverless-http')
+// const serverless = require('serverless-http')
 
 const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-sptrm.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
-//`mongodb+srv://school:4eFmWw5I7hNEJUaa@cluster0-sptrm.mongodb.net/calendar?retryWrites=true&w=majority`;
+// const MONGODB_URI = `mongodb+srv://school:4eFmWw5I7hNEJUaa@cluster0-sptrm.mongodb.net/calendar?retryWrites=true&w=majority`;
 
 const app = express();
 const store = new MongoDBStore({
@@ -32,7 +32,7 @@ const authRoutes = require('./routes/auth');
 const employeeRoutes = require('./routes/employee');
 
 app.set('view engine', 'ejs');
-app.set('views', './src/views');
+app.set('views', 'views');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -65,9 +65,9 @@ app.use((req, res, next) => {
 		.catch((err) => console.log(err));
 });
 
-app.use('/.netlify/functions/app', authRoutes);
-// app.use('/.netlify/functions/api', employeeRoutes);
-// app.use('/.netlify/functions/api', errorController.get404Page);
+app.use(authRoutes);
+app.use(employeeRoutes);
+app.use(errorController.get404Page);
 
 app.use((error, req, res, next) => {
 	console.log("Heroku22")
@@ -85,4 +85,4 @@ mongoose
 		console.log(err);
 	});
 
-module.exports.handler = serverless(app)
+// module.exports.handler = serverless(app)

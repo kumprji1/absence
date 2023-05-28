@@ -8,10 +8,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "netlify-lambda serve src",
-    "build": "netlify-lambda build src",
+    "start": "node app.js",
     "start-server": "node app.js",
-    "startd": "nodemon ./src/app.js"
+    "startd": "nodemon app.js"
   },
   "author": "Jiri Kumprecht",
   "license": "ISC",
