@@ -11,7 +11,6 @@ const moment = require('moment');
 // const serverless = require('serverless-http')
 
 const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-sptrm.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
-// const MONGODB_URI = `mongodb+srv://school:4eFmWw5I7hNEJUaa@cluster0-sptrm.mongodb.net/calendar?retryWrites=true&w=majority`;
 
 const app = express();
 const store = new MongoDBStore({
