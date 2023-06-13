@@ -9,17 +9,11 @@ const dateUtil = require("../utils/dateUtil");
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 
-// const transporter = nodemailer.createTransport(sendgridTransport({
-//     auth: {
-//         api_key: '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'
-//     }
-// }));
-
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "kalendar.skolavrchlabi@gmail.com",
-    pass: "jkoqwysipatfgoti"
+    pass: process.env.GMAIL_PASSWD
   }
 });
 
@@ -388,13 +382,13 @@ exports.postAddEvent = (req, res, next) => {
 
         return transporter.sendMail({
           // to: "gortozcze@gmail.com",
-          to: "kovalcikovad@specialniskolavrchlabi.cz",
+          to: process.env.RECEIVING_EMAIL,
           from: "kalendar.skolavrchlabi@gmail.com",
           subject: "Nová absence",
           html: `
                 <p>Byla přidána nová absence.</p>
                 <p>Pracoviště: ${workplaceName}</p>
-                <p>Pro detail klikni <a href="http://absence-diakonie.herokuapp.com/event/${idEvent}">zde</a></p>
+                <p>Pro detail klikni <a href="${process.env.BACKEND_URL}/event/${idEvent}">zde</a></p>
                 `
         });
       }
@@ -472,7 +466,7 @@ exports.postResponse = (req, res, next) => {
           subject: subjectOfMail,
           html: `
             <p>Absence s důvodem: "${creatorsNoteOfEvent}" byla ${schvalNeschval}</p>
-            <p>Pro detail klikni <a href="http://absence-diakonie.herokuapp.com/event/${eventId}">zde</a></p>
+            <p>Pro detail klikni <a href="${process.env.BACKEND_URL}/event/${eventId}">zde</a></p>
             `
         });
       }
@@ -517,7 +511,7 @@ exports.postInvalidate = (req, res, next) => {
       const url = "/event/" + eventId;
       res.redirect(url);
       return transporter.sendMail({
-        to: "kovalcikovad@specialniskolavrchlabi.cz",
+        to: process.env.RECEIVING_EMAIL,
         // to: "gortozcze@gmail.com",
         from: "kalendar.skolavrchlabi@gmail.com",
         subject: "Absence zrušena",
@@ -525,7 +519,7 @@ exports.postInvalidate = (req, res, next) => {
         <p>Absence s důvedem: "${creatorsNoteOfEvent}" byla zrušena.</p>
         <p>Kým: ${whoN} ${whoL}</p>
         <p>Poznamka: ${note}</p>
-        <p>Pro detail klikni <a href="http://absence-diakonie.herokuapp.com/event/${eventId}">zde</a></p>
+        <p>Pro detail klikni <a href="${process.env.BACKEND_URL}/event/${eventId}">zde</a></p>
         `
       });
     })

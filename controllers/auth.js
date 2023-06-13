@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "kalendar.skolavrchlabi@gmail.com",
-    pass: "jkoqwysipatfgoti"
+    pass: process.env.GMAIL_PASSWD
   }
 });
 
@@ -64,7 +64,7 @@ exports.postResetPassword = (req, res, next) => {
           subject: "Změna hesla",
           html: `
                 <p>Změna hesla</p>
-                <p>Klikni <a href="http://absence-diakonie.herokuapp.com/reset/${token}">zde</a> pro změnu hesla.</p>
+                <p>Klikni <a href="${process.env.BACKEND_URL}/reset/${token}">zde</a> pro změnu hesla.</p>
                 `
         });
       })
@@ -183,7 +183,7 @@ exports.postRegister = (req, res, next) => {
           from: "kalendar.skolavrchlabi@gmail.com",
           subject: "Ověření účtu",
           html: `
-            <p>Klikni <a href="http://absence-diakonie.herokuapp.com/verify/${token}">zde</a> pro ověření účtu.</p>
+            <p>Klikni <a href="${process.env.BACKEND_URL}/verify/${token}">zde</a> pro ověření účtu.</p>
             `
         });
       })

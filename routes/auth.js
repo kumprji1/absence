@@ -56,12 +56,12 @@ router.post(
         body('email')
             .isEmail()
             .withMessage('Zadejte prosím správnou emailovou adresu')
-            // .custom((value, { req }) => {
-            //     if (value.split('@')[1] !== 'specialniskolavrchlabi.cz') {
-            //         throw new Error('Adresa musí být z domény test.com');
-            //     }
-            //     return true;
-            // })
+            .custom((value, { req }) => {
+                if (value.split('@')[1] !== 'specialniskolavrchlabi.cz') {
+                    throw new Error('Neregistrujete platnou školní emailovou adresu');
+                }
+                return true;
+            })
             .custom((value, { req }) => {
                 return User.findOne({ email: value })
                     .then((userDoc) => {
