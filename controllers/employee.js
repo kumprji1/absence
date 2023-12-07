@@ -84,7 +84,7 @@ exports.getVrchlabi = (req, res, next) => {
           dates: arrayOfDates,
           formatDatesFrom: formattedDatesFrom,
           formatDatesTo: formattedDatesTo,
-          numOfEmployees: 10,
+          numOfEmployees: 15,
           csrfToken: req.csrfToken()
         });
       }
@@ -134,7 +134,7 @@ exports.getDvur = (req, res, next) => {
           dates: arrayOfDates,
           formatDatesFrom: formattedDatesFrom,
           formatDatesTo: formattedDatesTo,
-          numOfEmployees: 7,
+          numOfEmployees: 11,
           csrfToken: req.csrfToken()
         });
       })
@@ -185,7 +185,7 @@ exports.getTrutnov = (req, res, next) => {
           // dates: undefined,
           formatDatesFrom: formattedDatesFrom,
           formatDatesTo: formattedDatesTo,
-          numOfEmployees: 12,
+          numOfEmployees: 15,
           csrfToken: req.csrfToken()
         });
       }
@@ -233,7 +233,7 @@ exports.getHradec = (req, res, next) => {
           dates: arrayOfDates,
           formatDatesFrom: formattedDatesFrom,
           formatDatesTo: formattedDatesTo,
-          numOfEmployees: 9,
+          numOfEmployees: 17,
           csrfToken: req.csrfToken()
         });
       }
